@@ -78,7 +78,6 @@ public class SudokuEntry implements Serializable {
 
 	@Override
 	public String toString() {
-//		log.info("SudokuEntry<{}, {}>:{}\nrow: {}\ncolumn: {}\nregion: {}\n", rowId, columnId, ans.ordinal(), rowSudokuConstraint, columnSudokuConstraint, regionSudokuConstraint);
 		return String.format("SudokuEntry<%d, %d>:%d\n row:%s\n column:%s\n region:%s \n", rowId, columnId, ans.ordinal(), rowSudokuConstraint, columnSudokuConstraint, regionSudokuConstraint);
 	}
 }
