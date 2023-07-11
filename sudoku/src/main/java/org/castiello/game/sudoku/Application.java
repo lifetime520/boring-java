@@ -3,7 +3,6 @@ package org.castiello.game.sudoku;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.castiello.game.sudoku.algo.ConstraintAlgorithm;
-import org.castiello.game.sudoku.algo.SudokuVerifyAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuItem;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -27,10 +26,10 @@ public class Application {
 		item.print("After input");
 
 		item.algorithm(new ConstraintAlgorithm());
-		item.algorithm(new SudokuVerifyAlgorithm());
+//		item.algorithm(new SudokuVerifyAlgorithm());
 
 		item.print("After autoMode");
-//		item.printOptions();
+		item.printOptions();
 
 //		log.info("{}", item.toString());
 	}

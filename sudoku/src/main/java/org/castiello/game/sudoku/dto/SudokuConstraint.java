@@ -2,9 +2,7 @@ package org.castiello.game.sudoku.dto;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.castiello.game.sudoku.SudokuElement;
 
@@ -13,7 +11,6 @@ public class SudokuConstraint implements Serializable {
 
 	private final String key;
 	private final Set<SudokuElement> sets = new HashSet<>();
-	private final Map<String, SudokuConstraint> instanceMap = new ConcurrentHashMap<>();
 	public static String getConstraintKey(int r, int c, boolean region) {
 		return String.format("%d,%d,%b", r, c, region);
 	}
@@ -39,6 +36,6 @@ public class SudokuConstraint implements Serializable {
 	}
 
 	public String toString() {
-		return sets.toString();
+		return String.format("%s:%s", key, sets.toString());
 	}
 }

@@ -6,11 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 
-public class SudokuVerifyAlgorithm implements IAlgorithm {
+public class SudokuVerifyAlgorithm implements IAlgorithm<Boolean> {
 	public static Logger log = LogManager.getLogger(SudokuVerifyAlgorithm.class);
 
 	@Override
-	public boolean algorithm(SudokuEntry[][] sudokuEntrys) {
+	public Boolean algorithm(SudokuEntry[][] sudokuEntrys) {
 		return Arrays.asList(sudokuEntrys)
 				.stream()
 				.flatMap(arrays -> Arrays.asList(arrays).stream())

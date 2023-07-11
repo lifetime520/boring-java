@@ -9,11 +9,11 @@ import org.apache.logging.log4j.Logger;
 import org.castiello.game.sudoku.SudokuElement;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 
-public class ConstraintAlgorithm implements IAlgorithm {
+public class ConstraintAlgorithm implements IAlgorithm<Boolean> {
 	public static Logger log = LogManager.getLogger(ConstraintAlgorithm.class);
 
 	@Override
-	public boolean algorithm(SudokuEntry[][] sudokuEntrys) {
+	public Boolean algorithm(SudokuEntry[][] sudokuEntrys) {
 		boolean conti = true;
 		int round = 0;
 		while (conti) {

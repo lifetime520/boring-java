@@ -2,11 +2,9 @@ package org.castiello.game.sudoku.dto;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -78,7 +76,7 @@ public class SudokuItem implements Serializable {
 				.forEach(_sudokuEntry -> log.info("{}: {}", _sudokuEntry.getId(), _sudokuEntry.getOptions()));
 	}
 
-	public boolean algorithm(IAlgorithm algorithm) {
+	public <R> R algorithm(IAlgorithm<R> algorithm) {
 		return algorithm.algorithm(sudokuEntrys);
 	}
 
