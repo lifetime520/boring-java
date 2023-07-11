@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration debug="false"> <!-- scan="true" scanPeriod="600 seconds" -->
+	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS}${LOG_LEVEL_PATTERN:-%5p}${PID:- }|[%t] %-20.20logger{19} : %m%n"/>
+	<property name="LOG_SIMPLE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} : %m%n"/><!-- 測試環境/正式環境 -->
+
+	<springProfile name="shu">
+		<appender name="FILEOUT_ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<!-- Support multiple-JVM writing to the same log file -->
+			<prudent>true</prudent>
+			<append>true</append>
+			<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>./logs/sys-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+				<maxFileSize>20MB</maxFileSize>	 
+				<maxHistory>28</maxHistory>
+				<totalSizeCap>5GB</totalSizeCap>
+			</rollingPolicy>
+			<encoder>
+				<charset>UTF-8</charset>
+				<pattern>${LOG_PATTERN}</pattern>
+			</encoder>
+		</appender>
+	</springProfile>
+
+	<!-- 開發環境 -->
+	<springProfile name="local,shu-dev">
+		<!-- Support multiple-JVM writing to the same log file -->
+		<appender name="DEV_FILEOUT_ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<prudent>true</prudent>
+			<append>true</append>
+			<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>./logs/sys-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+				<maxFileSize>20MB</maxFileSize>	 
+				<maxHistory>7</maxHistory>
+				<totalSizeCap>1GB</totalSizeCap>
+			</rollingPolicy>
+			<encoder>
+				<charset>UTF-8</charset>
+				<pattern>${LOG_PATTERN}</pattern>
+			</encoder>
+		</appender>
+	</springProfile>
+
+	<appender name="SIMPLE_FILEOUT_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<prudent>true</prudent>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>./logs/%d{yyyy-MM-dd}.sudoku.txt</fileNamePattern>
+			<!-- <maxFileSize>20MB</maxFileSize> -->
+			<maxHistory>10</maxHistory>
+			<!-- <totalSizeCap>1GB</totalSizeCap> -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${LOG_SIMPLE_PATTERN}</pattern>
+		</encoder>
+	</appender>
+	<logger name="org.castiello.game" additivity="true" level="INFO">
+		<appender-ref ref="SIMPLE_FILEOUT_LOG" />
+	</logger>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<springProfile name="shu">
+			<appender-ref ref="FILEOUT_ROOT" />
+		</springProfile>
+		<springProfile name="local,shu-dev">
+			<appender-ref ref="DEV_FILEOUT_ROOT" />
+		</springProfile>
+	</root>
+</configuration>
