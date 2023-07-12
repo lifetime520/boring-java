@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration>
 <configuration debug="false"> <!-- scan="true" scanPeriod="600 seconds" -->
-	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS}${LOG_LEVEL_PATTERN:-%5p}${PID:- }|[%t] %-20.20logger{19} : %m%n"/>
+	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS}|${LOG_LEVEL_PATTERN:-%5p}${PID:- }[%t] %-20.20logger{19} : %m%n"/>
 	<property name="LOG_SIMPLE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} : %m%n"/><!-- 測試環境/正式環境 -->
 
 	<springProfile name="shu">

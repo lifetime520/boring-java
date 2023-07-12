@@ -6,6 +6,7 @@ import org.castiello.game.sudoku.dto.SudokuEntry;
 
 public class DFSAlgorithm implements IAlgorithm<String> {
 	public static Logger log = LogManager.getLogger(DFSAlgorithm.class);
+	public static final DFSAlgorithm INSTANCE = new DFSAlgorithm();
 
 	@Override
 	public String algorithm(SudokuEntry[][] sudokuEntrys) {

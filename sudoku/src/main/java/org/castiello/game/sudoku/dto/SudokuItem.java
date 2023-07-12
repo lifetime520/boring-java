@@ -40,7 +40,7 @@ public class SudokuItem implements Serializable {
 		for (int r = 0; r < 9; r++)
 			for (int c = 0; c < 9; c++)
 				setEntry(r, c, String.valueOf((char) vals.charAt(r * 9 + c)));
-		return algorithm(new SudokuVerifyAlgorithm());
+		return algorithm(SudokuVerifyAlgorithm.INSTANCE);
 	}
 
 	public boolean setEntry(int r, int c, String v) {
@@ -52,7 +52,7 @@ public class SudokuItem implements Serializable {
 			log.info("r:{}, c:{}, v:{}, bool:{}", r, c, v, result);
 			log.info(sudokuEntrys[r][c]);
 		}
-		return result && algorithm(new SudokuVerifyAlgorithm());
+		return result && algorithm(SudokuVerifyAlgorithm.INSTANCE);
 	}
 
 	public void print(String... argStr) {
@@ -71,8 +71,7 @@ public class SudokuItem implements Serializable {
 	public void printOptions() {
 		Arrays.asList(sudokuEntrys)
 				.stream()
-				.flatMap(arrays -> Arrays.asList(arrays).stream())
-				.filter(_sudokuEntry -> _sudokuEntry.getAns().ordinal() == 0)
+				.flatMap(arrays -> Arrays.asList(arrays).stream().filter(_sudokuEntry -> _sudokuEntry.getAns().ordinal() == 0))
 				.forEach(_sudokuEntry -> log.info("{}: {}", _sudokuEntry.getId(), _sudokuEntry.getOptions()));
 	}
 

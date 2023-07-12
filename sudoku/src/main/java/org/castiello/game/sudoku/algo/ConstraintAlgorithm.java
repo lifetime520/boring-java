@@ -11,6 +11,7 @@ import org.castiello.game.sudoku.dto.SudokuEntry;
 
 public class ConstraintAlgorithm implements IAlgorithm<Boolean> {
 	public static Logger log = LogManager.getLogger(ConstraintAlgorithm.class);
+	public static final ConstraintAlgorithm INSTANCE = new ConstraintAlgorithm();
 
 	@Override
 	public Boolean algorithm(SudokuEntry[][] sudokuEntrys) {
@@ -18,15 +19,15 @@ public class ConstraintAlgorithm implements IAlgorithm<Boolean> {
 		int round = 0;
 		while (conti) {
 			List<SudokuEntry> sudokuEntryList = Arrays.asList(sudokuEntrys)
-					.stream()
+					.parallelStream()
 					.flatMap(arrays -> Arrays.asList(arrays).stream())
-					.filter(_sudokuEntry -> _sudokuEntry.getAns().ordinal() == 0)
-					.filter(_sudokuEntry -> _sudokuEntry.getOptions().size() == 1)
+					.filter(_sudokuEntry -> _sudokuEntry.getAns().ordinal() == 0 && _sudokuEntry.getOptions().size() == 1)
 					.collect(Collectors.toList());
-			conti = !sudokuEntryList.isEmpty();
-			if (conti) {
+
+			if (conti = !sudokuEntryList.isEmpty()) {
 				for (SudokuEntry sudokuEntry: sudokuEntryList) {
-					SudokuElement sudokuElementAns = sudokuEntry.getOptions().stream().findAny().get();
+					SudokuElement sudokuElementAns = sudokuEntry.getOptions().stream().findAny().orElseGet(() -> SudokuElement.EMPTY);
+					if (sudokuElementAns == SudokuElement.EMPTY) continue;
 					sudokuEntry.setAns(sudokuElementAns);
 				}
 				log.info("[AlgorithmByConstraint] round: {}, elements: {}", ++round, sudokuEntryList.size());
