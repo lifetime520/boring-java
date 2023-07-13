@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 
 public class DFSAlgorithm implements IAlgorithm<String> {
-	public static Logger log = LogManager.getLogger(DFSAlgorithm.class);
+	public static final Logger log = LogManager.getLogger(DFSAlgorithm.class);
 	public static final DFSAlgorithm INSTANCE = new DFSAlgorithm();
 
 	@Override

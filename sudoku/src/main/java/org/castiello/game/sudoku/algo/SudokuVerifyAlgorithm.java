@@ -4,10 +4,11 @@ import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.castiello.game.sudoku.SudokuElement;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 
 public class SudokuVerifyAlgorithm implements IAlgorithm<Boolean> {
-	public static Logger log = LogManager.getLogger(SudokuVerifyAlgorithm.class);
+	public static final Logger log = LogManager.getLogger(SudokuVerifyAlgorithm.class);
 	public static final SudokuVerifyAlgorithm INSTANCE = new SudokuVerifyAlgorithm();
 
 	@Override
@@ -15,7 +16,7 @@ public class SudokuVerifyAlgorithm implements IAlgorithm<Boolean> {
 		return !Arrays.asList(sudokuEntrys)
 				.stream()
 				.flatMap(arrays -> Arrays.asList(arrays).stream())
-				.anyMatch(_sudokuEntry -> _sudokuEntry.getAns().ordinal() == 0 && _sudokuEntry.getOptions().size() == 0);
+				.anyMatch(_sudokuEntry -> _sudokuEntry.getAns() == SudokuElement.EMPTY && _sudokuEntry.getOptions().isEmpty());
 	}
 
 }

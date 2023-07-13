@@ -35,6 +35,14 @@ public class SudokuConstraint implements Serializable {
 		return sets.contains(sudokuElement);
 	}
 
+	public boolean isEmpty() {
+		return sets.isEmpty();
+	}
+
+	public boolean isFull() {
+		return sets.size() == 9;
+	}
+
 	public String toString() {
 		return String.format("%s:%s", key, sets.toString());
 	}

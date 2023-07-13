@@ -40,9 +40,11 @@ public class SudokuEntry implements Serializable {
 	}
 
 	public Set<SudokuElement> getOptions() {
-		Set<SudokuElement> leaveElement = new HashSet<>(allSets);
+		final Set<SudokuElement> leaveElement = new HashSet<>(allSets);
 		leaveElement.removeAll(rowSudokuConstraint.getSets());
+//		if (leaveElement.isEmpty()) return leaveElement;
 		leaveElement.removeAll(columnSudokuConstraint.getSets());
+//		if (leaveElement.isEmpty()) return leaveElement;
 		leaveElement.removeAll(regionSudokuConstraint.getSets());
 		return leaveElement;
 	}
@@ -77,6 +79,6 @@ public class SudokuEntry implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("SudokuEntry<%d, %d>:%d\n row:%s\n column:%s\n region:%s \n", rowId, columnId, ans.ordinal(), rowSudokuConstraint, columnSudokuConstraint, regionSudokuConstraint);
+		return String.format("SudokuEntry<%d, %d>:%d\n row:%s\n column:%s\n region:%s \n", rowId, columnId, ans, rowSudokuConstraint, columnSudokuConstraint, regionSudokuConstraint);
 	}
 }

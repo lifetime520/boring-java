@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.castiello.game.sudoku.SudokuElement;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.dto.SudokuItem;
 
@@ -18,15 +18,10 @@ public class BFSAlgorithm implements IAlgorithm<String> {
 
 	@Override
 	public String algorithm(SudokuEntry[][] sudokuEntrys) {
-		String sudokuGenerateKey = Arrays.asList(sudokuEntrys)
-				.stream()
-				.flatMap(arrays -> Arrays.asList(arrays).stream())
-				.map(e -> String.valueOf(e.getAns().ordinal()))
-				.reduce((s, e) -> String.format("%s%s", s, e))
-				.get();
+		String sudokuGenerateKey = GenerateKeyAlgorithm.INSTANCE.algorithm(sudokuEntrys);
 		SudokuEntry sudokuEntry = Arrays.asList(sudokuEntrys)
-				.parallelStream()
-				.flatMap(arrays -> Arrays.asList(arrays).stream().filter(_sudokuEntry -> _sudokuEntry.getAns().ordinal() == 0))
+				.stream()
+				.flatMap(arrays -> Arrays.asList(arrays).stream().filter(_sudokuEntry -> _sudokuEntry.getAns() == SudokuElement.EMPTY))
 				.findFirst()
 				.orElseGet(() -> SudokuEntry.EMPTY);
 		if (sudokuEntry == SudokuEntry.EMPTY) return sudokuGenerateKey;
@@ -43,7 +38,8 @@ public class BFSAlgorithm implements IAlgorithm<String> {
 					if (!result) {
 						log.info("skip  gKey:  {}", _sudokuGenerateKey);
 						return null;
-					} else if (_sudokuGenerateKey.indexOf("0") == -1) {
+					}
+					if (_item.isComplete()) {
 						log.info("final gKey:  {}", _sudokuGenerateKey);
 						return _sudokuGenerateKey;
 					} else {
