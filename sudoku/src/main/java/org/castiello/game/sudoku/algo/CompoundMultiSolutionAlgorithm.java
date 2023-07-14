@@ -14,7 +14,7 @@ import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.dto.SudokuItem;
 
 public class CompoundMultiSolutionAlgorithm implements IAlgorithm<List<String>> {
-	public static final Logger log = LogManager.getLogger(DFSAlgorithm.class);
+	public static final Logger log = LogManager.getLogger(CompoundMultiSolutionAlgorithm.class);
 	public static final List<String> EMPTY = List.of();
 	public static final CompoundMultiSolutionAlgorithm INSTANCE = new CompoundMultiSolutionAlgorithm();
 	private static Field field;

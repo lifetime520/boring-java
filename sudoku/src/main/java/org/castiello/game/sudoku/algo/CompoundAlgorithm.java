@@ -11,7 +11,7 @@ import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.dto.SudokuItem;
 
 public class CompoundAlgorithm implements IAlgorithm<String> {
-	public static final Logger log = LogManager.getLogger(DFSAlgorithm.class);
+	public static final Logger log = LogManager.getLogger(CompoundAlgorithm.class);
 	public static final CompoundAlgorithm INSTANCE = new CompoundAlgorithm();
 	private static Field field;
 

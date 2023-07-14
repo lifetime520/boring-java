@@ -12,7 +12,7 @@ import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.dto.SudokuItem;
 
 public class BFSAlgorithm implements IAlgorithm<String> {
-	public static Logger log = LogManager.getLogger(DFSAlgorithm.class);
+	public static Logger log = LogManager.getLogger(BFSAlgorithm.class);
 	public static final List<String> EMPTY = new ArrayList<>();
 	public static final BFSAlgorithm INSTANCE = new BFSAlgorithm();
 
