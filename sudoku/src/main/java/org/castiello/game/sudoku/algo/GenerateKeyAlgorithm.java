@@ -15,7 +15,7 @@ public class GenerateKeyAlgorithm implements IAlgorithm<String> {
 		return Arrays.asList(sudokuEntrys)
 				.stream()
 				.flatMap(arrays -> Arrays.asList(arrays).stream())
-				.map(e -> String.valueOf(e.getAns().ordinal()))
+				.map(e -> e.getAns().toZeroString())
 				.reduce((s, e) -> String.format("%s%s", s, e))
 				.get();
 	}

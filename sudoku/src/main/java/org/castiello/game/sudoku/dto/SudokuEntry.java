@@ -50,10 +50,13 @@ public class SudokuEntry implements Serializable {
 	}
 
 	public boolean setAns(SudokuElement sudokuElement) {
-		if (rowSudokuConstraint.containElement(sudokuElement)
+		if (sudokuElement == SudokuElement.EMPTY
+				|| ans != SudokuElement.EMPTY
+				|| rowSudokuConstraint.containElement(sudokuElement)
 				|| columnSudokuConstraint.containElement(sudokuElement)
 				|| regionSudokuConstraint.containElement(sudokuElement))
 			return false;
+
 		rowSudokuConstraint.addSet(sudokuElement);
 		columnSudokuConstraint.addSet(sudokuElement);
 		regionSudokuConstraint.addSet(sudokuElement);

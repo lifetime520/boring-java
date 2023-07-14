@@ -11,9 +11,6 @@ public class SudokuConstraint implements Serializable {
 
 	private final String key;
 	private final Set<SudokuElement> sets = new HashSet<>();
-	public static String getConstraintKey(int r, int c, boolean region) {
-		return String.format("%d,%d,%b", r, c, region);
-	}
 
 	public SudokuConstraint(String key) {
 		this.key = key;
@@ -24,7 +21,7 @@ public class SudokuConstraint implements Serializable {
 	}
 
 	public boolean addSet(SudokuElement sudokuElement) {
-		return !sets.contains(sudokuElement) && sets.add(sudokuElement);
+		return sets.add(sudokuElement);
 	}
 
 	public boolean removeElement(SudokuElement sudokuElement) {

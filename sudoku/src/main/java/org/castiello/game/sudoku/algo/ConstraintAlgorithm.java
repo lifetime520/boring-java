@@ -1,6 +1,9 @@
 package org.castiello.game.sudoku.algo;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,28 +15,32 @@ import org.castiello.game.sudoku.dto.SudokuEntry;
 public class ConstraintAlgorithm implements IAlgorithm<Boolean> {
 	public static final Logger log = LogManager.getLogger(ConstraintAlgorithm.class);
 	public static final ConstraintAlgorithm INSTANCE = new ConstraintAlgorithm();
+	public final Comparator<SudokuEntry> comparator = (o1, o2) -> Integer.compare(o1.getOptions().size(), o2.getOptions().size());
 
 	@Override
 	public Boolean algorithm(SudokuEntry[][] sudokuEntrys) {
-		boolean conti = true;
 		int round = 0;
-		while (conti) {
-			final List<SudokuEntry> sudokuEntryList = Arrays.asList(sudokuEntrys)
-					.parallelStream()
-					.flatMap(arrays -> Arrays.asList(arrays).stream())
-					.filter(_sudokuEntry -> _sudokuEntry.getAns() == SudokuElement.EMPTY && _sudokuEntry.getOptions().size() == 1)
-					.collect(Collectors.toList());
+		final List<SudokuEntry> reusedSudokuEntryList = Arrays.asList(sudokuEntrys)
+				.stream()
+				.flatMap(arrays -> Arrays.asList(arrays).stream().filter(_sudokuEntry -> _sudokuEntry.getAns() == SudokuElement.EMPTY))
+				.sorted(comparator)
+				.collect(Collectors.toList());
 
-			if (conti = !sudokuEntryList.isEmpty()) {
-				for (SudokuEntry sudokuEntry: sudokuEntryList) {
-					if (sudokuEntry.getOptions().isEmpty()) continue;
+		while (!reusedSudokuEntryList.isEmpty() && reusedSudokuEntryList.get(0).getOptions().size() == 1) {
+			final int orgSize = reusedSudokuEntryList.size();
+			final Iterator<SudokuEntry> it = reusedSudokuEntryList.iterator();
+			while (it.hasNext()) {
+				final SudokuEntry sudokuEntry = it.next();
+				if (sudokuEntry.getOptions().size() != 1) continue;
+				it.remove();
 
-					final SudokuElement sudokuElementAns = sudokuEntry.getOptions().iterator().next();
-					sudokuEntry.setAns(sudokuElementAns);
-				}
-				log.info("[AlgorithmByConstraint] round: {}, elements: {}", ++round, sudokuEntryList.size());
+				sudokuEntry.setAns(sudokuEntry.getOptions().iterator().next());
 			}
+			log.trace("[AlgorithmByConstraint] round: {}, elements: {}", ++round, orgSize - reusedSudokuEntryList.size());
+
+			Collections.sort(reusedSudokuEntryList, comparator);
 		}
+
 		return round != 0;
 	}
 }
