@@ -4,17 +4,20 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.castiello.game.sudoku.algo.CompoundAlgorithm;
 import org.castiello.game.sudoku.algo.CompoundMultiSolutionAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuItem;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class Application {
 	public static final Logger log = LogManager.getLogger(Application.class);
 
 	public static void main(String[] args) {
-//		SpringApplication.run(SudokuApplication.class, args);
+		SpringApplication.run(Application.class, args);
 //		Scanner sc = new Scanner(System.in);
 //		String input = sc.next("\\d+");
 		String inputZ  = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
@@ -22,18 +25,18 @@ public class Application {
 		String inputM  = "306204001092670005008100726030006010800720000060005070005800647083540002704901003";
 		String inputH  = "602091578807006109100500460594030080006000200070060345065003004701600903483910706";
 		String inputVH = "000000082090050410000208900780000631000000000342000079009703000037060050420000000";
-		solveByCompoundMultiSolutionAlgorithm(inputZ);
-//		CompoundMultiSolutionAlgorithm.collectAns.set(true);
-//		solveByCompoundMultiSolutionAlgorithm(inputE);
-//		solveByCompoundMultiSolutionAlgorithm(inputM);
-//		solveByCompoundMultiSolutionAlgorithm(inputH);
-//		solveByCompoundMultiSolutionAlgorithm(inputVH);
-//		CompoundMultiSolutionAlgorithm.collectAns.set(false);
-//		solveByCompoundAlgorithm(inputZ);
-//		solveByCompoundAlgorithm(inputE);
-//		solveByCompoundAlgorithm(inputM);
-//		solveByCompoundAlgorithm(inputH);
-//		solveByCompoundAlgorithm(inputVH);
+//		solveByCompoundMultiSolutionAlgorithm(inputZ);
+		CompoundMultiSolutionAlgorithm.collectAns.set(true);
+		solveByCompoundMultiSolutionAlgorithm(inputE);
+		solveByCompoundMultiSolutionAlgorithm(inputM);
+		solveByCompoundMultiSolutionAlgorithm(inputH);
+		solveByCompoundMultiSolutionAlgorithm(inputVH);
+		CompoundMultiSolutionAlgorithm.collectAns.set(false);
+		solveByCompoundAlgorithm(inputZ);
+		solveByCompoundAlgorithm(inputE);
+		solveByCompoundAlgorithm(inputM);
+		solveByCompoundAlgorithm(inputH);
+		solveByCompoundAlgorithm(inputVH);
 	}
 
 	public static void solveByCompoundAlgorithm(String input) {

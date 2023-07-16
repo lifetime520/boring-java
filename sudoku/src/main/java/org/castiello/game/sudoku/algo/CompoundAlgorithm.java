@@ -25,7 +25,7 @@ public class CompoundAlgorithm implements IAlgorithm<String> {
 		final SudokuItem preCheckItem = new SudokuItem("preCheckItem");
 		final boolean preCheckInit = preCheckItem.setEntries(sudokuGenerateKey);
 		if (!preCheckInit) {
-			log.info("skip @1   gKey:  {}", sudokuGenerateKey);
+			log.trace("skip @1   gKey:  {}", sudokuGenerateKey);
 			if (log.isTraceEnabled()) {
 				preCheckItem.print();
 				preCheckItem.printOptions();
@@ -50,9 +50,9 @@ public class CompoundAlgorithm implements IAlgorithm<String> {
 				.findFirst()
 				.orElse(SudokuEntry.EMPTY);
 		if (sudokuEntry == SudokuEntry.EMPTY) {
-			log.info("skip @3   gKey:  {}", sudokuGenerateKey);
+			log.trace("skip @3   gKey:  {}", sudokuGenerateKey);
 			if (log.isTraceEnabled()) {
-				log.info("getSudokuEntrys(preCheckItem):  {}", Arrays.deepToString(sudokuEntrys));
+				log.trace("getSudokuEntrys(preCheckItem):  {}", Arrays.deepToString(sudokuEntrys));
 				preCheckItem.print();
 				preCheckItem.printOptions();
 			}
