@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.castiello.game.sudoku.algo.IAlgorithm;
+import org.castiello.game.sudoku.algo.ISolveAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.enums.SudokuElement;
 
-public class ConstraintAlgorithm implements IAlgorithm<Boolean> {
+public class ConstraintAlgorithm implements ISolveAlgorithm<Boolean> {
 	public static final Logger log = LogManager.getLogger(ConstraintAlgorithm.class);
 	public static final ConstraintAlgorithm INSTANCE = new ConstraintAlgorithm();
 	public final Comparator<SudokuEntry> comparator = (o1, o2) -> Integer.compare(o1.getOptions().size(), o2.getOptions().size());

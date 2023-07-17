@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.castiello.game.sudoku.algo.IAlgorithm;
+import org.castiello.game.sudoku.algo.ISolveAlgorithm;
 import org.castiello.game.sudoku.algo.impl.GenerateKeyAlgorithm;
 import org.castiello.game.sudoku.algo.impl.SudokuVerifyAlgorithm;
 import org.castiello.game.sudoku.enums.SudokuElement;
@@ -54,7 +54,7 @@ public class SudokuItem implements Serializable {
 	}
 
 	private boolean setEntry(SudokuEntry sudokuEntry, SudokuElement val) {
-		return sudokuEntry.setAns(val) && algorithm(SudokuVerifyAlgorithm.INSTANCE);
+		return sudokuEntry.setAns(val) && SudokuVerifyAlgorithm.INSTANCE.algorithm(sudokuEntrys);
 	}
 
 	public void print(String... argStr) {
@@ -86,7 +86,7 @@ public class SudokuItem implements Serializable {
 		return !instanceMap.values().stream().anyMatch(constraint -> !constraint.isFull());
 	}
 
-	public <R> R algorithm(IAlgorithm<R> algorithm) {
+	public <R> R algorithm(ISolveAlgorithm<R> algorithm) {
 		return algorithm.algorithm(sudokuEntrys);
 	}
 

@@ -7,12 +7,12 @@ import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.castiello.game.sudoku.algo.IAlgorithm;
+import org.castiello.game.sudoku.algo.ISolveAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.dto.SudokuItem;
 import org.castiello.game.sudoku.enums.SudokuElement;
 
-public class BFSAlgorithm implements IAlgorithm<String> {
+public class BFSAlgorithm implements ISolveAlgorithm<String> {
 	public static Logger log = LogManager.getLogger(BFSAlgorithm.class);
 	public static final List<String> EMPTY = new ArrayList<>();
 	public static final BFSAlgorithm INSTANCE = new BFSAlgorithm();

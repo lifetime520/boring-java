@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.castiello.game.sudoku.algo.IAlgorithm;
+import org.castiello.game.sudoku.algo.ISolveAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.dto.SudokuItem;
 import org.castiello.game.sudoku.enums.SudokuElement;
 
-public class CompoundMultiSolutionAlgorithm implements IAlgorithm<List<String>> {
+public class CompoundMultiSolutionAlgorithm implements ISolveAlgorithm<List<String>> {
 	public static final Logger log = LogManager.getLogger(CompoundMultiSolutionAlgorithm.class);
 	public static final List<String> EMPTY = List.of();
 	public static final CompoundMultiSolutionAlgorithm INSTANCE = new CompoundMultiSolutionAlgorithm();

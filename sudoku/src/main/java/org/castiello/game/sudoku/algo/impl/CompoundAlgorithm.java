@@ -6,12 +6,12 @@ import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.castiello.game.sudoku.algo.IAlgorithm;
+import org.castiello.game.sudoku.algo.ISolveAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.dto.SudokuItem;
 import org.castiello.game.sudoku.enums.SudokuElement;
 
-public class CompoundAlgorithm implements IAlgorithm<String> {
+public class CompoundAlgorithm implements ISolveAlgorithm<String> {
 	public static final Logger log = LogManager.getLogger(CompoundAlgorithm.class);
 	public static final CompoundAlgorithm INSTANCE = new CompoundAlgorithm();
 	private static Field field;
