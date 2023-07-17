@@ -1,10 +1,10 @@
-package org.castiello.game.sudoku.sudoku;
+package org.castiello.game.sudoku;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SudokuApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

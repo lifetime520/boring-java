@@ -19,23 +19,23 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 //		Scanner sc = new Scanner(System.in);
 //		String input = sc.next("\\d+");
-		String inputZ  = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
-		String inputE  = "800203004492000753100594002950010038024658910710030026600821005273000841500307009";
-		String inputM  = "306204001092670005008100726030006010800720000060005070005800647083540002704901003";
-		String inputH  = "602091578807006109100500460594030080006000200070060345065003004701600903483910706";
-		String inputVH = "000000082090050410000208900780000631000000000342000079009703000037060050420000000";
-//		solveByCompoundMultiSolutionAlgorithm(inputZ);
+		String inputZero     = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+		String inputEazy     = "800203004492000753100594002950010038024658910710030026600821005273000841500307009";
+		String inputMiddle   = "306204001092670005008100726030006010800720000060005070005800647083540002704901003";
+		String inputHard     = "602091578807006109100500460594030080006000200070060345065003004701600903483910706";
+		String inputVeryHard = "000000082090050410000208900780000631000000000342000079009703000037060050420000000";
+//		solveByCompoundMultiSolutionAlgorithm(inputZero);
 		CompoundMultiSolutionAlgorithm.collectAns.set(true);
-		solveByCompoundMultiSolutionAlgorithm(inputE);
-		solveByCompoundMultiSolutionAlgorithm(inputM);
-		solveByCompoundMultiSolutionAlgorithm(inputH);
-		solveByCompoundMultiSolutionAlgorithm(inputVH);
+		solveByCompoundMultiSolutionAlgorithm(inputEazy);
+		solveByCompoundMultiSolutionAlgorithm(inputMiddle);
+		solveByCompoundMultiSolutionAlgorithm(inputHard);
+		solveByCompoundMultiSolutionAlgorithm(inputVeryHard);
 		CompoundMultiSolutionAlgorithm.collectAns.set(false);
-		solveByCompoundAlgorithm(inputZ);
-		solveByCompoundAlgorithm(inputE);
-		solveByCompoundAlgorithm(inputM);
-		solveByCompoundAlgorithm(inputH);
-		solveByCompoundAlgorithm(inputVH);
+		solveByCompoundAlgorithm(inputZero);
+		solveByCompoundAlgorithm(inputEazy);
+		solveByCompoundAlgorithm(inputMiddle);
+		solveByCompoundAlgorithm(inputHard);
+		solveByCompoundAlgorithm(inputVeryHard);
 	}
 
 	public static void solveByCompoundAlgorithm(String input) {

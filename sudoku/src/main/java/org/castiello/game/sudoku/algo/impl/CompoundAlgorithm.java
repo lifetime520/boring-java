@@ -1,6 +1,5 @@
 package org.castiello.game.sudoku.algo.impl;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -10,11 +9,11 @@ import org.castiello.game.sudoku.algo.ISolveAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.dto.SudokuItem;
 import org.castiello.game.sudoku.enums.SudokuElement;
+import org.castiello.game.sudoku.util.SudokuItemUtils;
 
 public class CompoundAlgorithm implements ISolveAlgorithm<String> {
 	public static final Logger log = LogManager.getLogger(CompoundAlgorithm.class);
 	public static final CompoundAlgorithm INSTANCE = new CompoundAlgorithm();
-	private static Field field;
 
 	@Override
 	public String algorithm(SudokuEntry[][] sudokuEntrys) {
@@ -44,7 +43,7 @@ public class CompoundAlgorithm implements ISolveAlgorithm<String> {
 			return newestSudokuGenerateKey;
 		}
 
-		final SudokuEntry[][] sudokuEntrys = getSudokuEntrys(preCheckItem);
+		final SudokuEntry[][] sudokuEntrys = SudokuItemUtils.getSudokuEntrys(preCheckItem);
 		final SudokuEntry sudokuEntry = Arrays.asList(sudokuEntrys)
 				.stream()
 				.flatMap(arrays -> Arrays.asList(arrays).stream().filter(_sudokuEntry -> _sudokuEntry.getAns() == SudokuElement.EMPTY))
@@ -69,21 +68,5 @@ public class CompoundAlgorithm implements ISolveAlgorithm<String> {
 				.filter(Objects::nonNull)
 				.findFirst()
 				.orElse(null);
-	}
-
-	static {
-		try {
-			field = SudokuItem.class.getDeclaredField("sudokuEntrys");
-			field.setAccessible(true);
-		} catch (NoSuchFieldException | SecurityException e) {
-		}
-	}
-
-	private SudokuEntry[][] getSudokuEntrys(SudokuItem preCheckItem) {
-		try {
-			return (SudokuEntry[][]) field.get(preCheckItem);
-		} catch (IllegalArgumentException | IllegalAccessException e) {
-		}
-		return null;
 	}
 }

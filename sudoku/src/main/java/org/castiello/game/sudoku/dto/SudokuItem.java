@@ -46,7 +46,8 @@ public class SudokuItem implements Serializable {
 	}
 
 	public boolean setEntry(int r, int c, String v) {
-		return setEntry(r, c, SudokuElement.get(v));
+		SudokuElement val = SudokuElement.get(v);
+		return SudokuElement.EMPTY == val || setEntry(r, c, val);
 	}
 
 	private boolean setEntry(int r, int c, SudokuElement val) {
@@ -74,7 +75,7 @@ public class SudokuItem implements Serializable {
 
 	public void printOptions() {
 		final long start = System.currentTimeMillis();
-		log.info("[name:{}]printOptions", name);
+		log.info("[name:{}] printOptions", name);
 		Arrays.asList(sudokuEntrys)
 				.stream()
 				.flatMap(arrays -> Arrays.asList(arrays).stream().filter(_sudokuEntry -> _sudokuEntry.getAns() == SudokuElement.EMPTY))
