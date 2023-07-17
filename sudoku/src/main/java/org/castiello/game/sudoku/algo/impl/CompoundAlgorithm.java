@@ -22,11 +22,11 @@ public class CompoundAlgorithm implements ISolveAlgorithm<String> {
 	}
 
 	public String algorithm(String sudokuGenerateKey) {
-		final SudokuItem preCheckItem = new SudokuItem("preCheckItem");
+		final SudokuItem preCheckItem = new SudokuItem("preCheckItem/" + sudokuGenerateKey);
 		final boolean preCheckInit = preCheckItem.setEntries(sudokuGenerateKey);
 		if (!preCheckInit) {
-			log.trace("skip @1   gKey:  {}", sudokuGenerateKey);
 			if (log.isTraceEnabled()) {
+				log.trace("skip @1   gKey:  {}", sudokuGenerateKey);
 				preCheckItem.print();
 				preCheckItem.printOptions();
 			}
@@ -50,8 +50,8 @@ public class CompoundAlgorithm implements ISolveAlgorithm<String> {
 				.findFirst()
 				.orElse(SudokuEntry.EMPTY);
 		if (sudokuEntry == SudokuEntry.EMPTY) {
-			log.trace("skip @3   gKey:  {}", sudokuGenerateKey);
 			if (log.isTraceEnabled()) {
+				log.trace("skip @3   gKey:  {}", sudokuGenerateKey);
 				log.trace("getSudokuEntrys(preCheckItem):  {}", Arrays.deepToString(sudokuEntrys));
 				preCheckItem.print();
 				preCheckItem.printOptions();

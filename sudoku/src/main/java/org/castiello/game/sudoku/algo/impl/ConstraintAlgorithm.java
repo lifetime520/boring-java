@@ -32,12 +32,14 @@ public class ConstraintAlgorithm implements ISolveAlgorithm<Boolean> {
 			final Iterator<SudokuEntry> it = reusedSudokuEntryList.iterator();
 			while (it.hasNext()) {
 				final SudokuEntry sudokuEntry = it.next();
+				if (sudokuEntry.getOptions().size() > 3) break;
 				if (sudokuEntry.getOptions().size() != 1) continue;
 				it.remove();
 
 				sudokuEntry.setAns(sudokuEntry.getOptions().iterator().next());
 			}
-			log.trace("[AlgorithmByConstraint] round: {}, elements: {}", ++round, orgSize - reusedSudokuEntryList.size());
+			if (log.isTraceEnabled())
+				log.trace("[MN:algorithm] round: {}, elements: {}", ++round, orgSize - reusedSudokuEntryList.size());
 
 			Collections.sort(reusedSudokuEntryList, comparator);
 		}

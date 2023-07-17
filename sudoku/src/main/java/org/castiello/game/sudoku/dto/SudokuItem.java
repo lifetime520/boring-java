@@ -38,19 +38,16 @@ public class SudokuItem implements Serializable {
 			int r = idx / 9;
 			int c = idx - r * 9;
 			sudokuEntrys[r][c] = new SudokuEntry(r, c, mapFunction);
-			SudokuElement val = SudokuElement.get(charVals[idx]);
-			return SudokuElement.EMPTY == val || setEntry(r, c, val);
+			final SudokuElement val = SudokuElement.get(charVals[idx]);
+			return SudokuElement.EMPTY == val || setEntry(sudokuEntrys[r][c], val);
 		});
-		log.trace("setEntries cost: {}ms", System.currentTimeMillis() - start);
+		if (log.isTraceEnabled())
+			log.trace("setEntries cost: {}ms", System.currentTimeMillis() - start);
 		return verify;
 	}
 
 	public boolean setEntry(int r, int c, String v) {
-		SudokuElement val = SudokuElement.get(v);
-		return SudokuElement.EMPTY == val || setEntry(r, c, val);
-	}
-
-	private boolean setEntry(int r, int c, SudokuElement val) {
+		final SudokuElement val = SudokuElement.get(v);
 		return SudokuElement.EMPTY == val || setEntry(sudokuEntrys[r][c], val);
 	}
 
@@ -62,15 +59,16 @@ public class SudokuItem implements Serializable {
 		final long start = System.currentTimeMillis();
 		final StringBuilder sb = new StringBuilder();
 		for (int r = 0; r < 9; r++) {
-			if (r > 0 && r % 3 == 0) sb.append("---------+---------+---------\n");
+			if (r == 3 || r == 6) sb.append("---------+---------+---------\n");
 			for (int c = 0; c < 9; c++) {
-				if (c > 0 && c % 3 == 0) sb.append("|");
+				if (c == 3 || c == 6) sb.append("|");
 				sb.append(" ").append(sudokuEntrys[r][c].getAns()).append(" ");
 			}
 			sb.append("\n");
 		}
 		log.info("{}\n[name:{}]\n{}", argStr != null && argStr.length > 0 ? argStr[0] : "", name, sb);
-		log.trace("print cost: {}ms", System.currentTimeMillis() - start);
+		if (log.isTraceEnabled())
+			log.trace("print cost: {}ms", System.currentTimeMillis() - start);
 	}
 
 	public void printOptions() {
@@ -80,7 +78,9 @@ public class SudokuItem implements Serializable {
 				.stream()
 				.flatMap(arrays -> Arrays.asList(arrays).stream().filter(_sudokuEntry -> _sudokuEntry.getAns() == SudokuElement.EMPTY))
 				.forEach(_sudokuEntry -> log.info("{}: {}", _sudokuEntry.getId(), _sudokuEntry.getOptions()));
-		log.trace("print cost: {}ms", System.currentTimeMillis() - start);
+
+		if (log.isTraceEnabled())
+			log.trace("print cost: {}ms", System.currentTimeMillis() - start);
 	}
 
 	public boolean isComplete() {

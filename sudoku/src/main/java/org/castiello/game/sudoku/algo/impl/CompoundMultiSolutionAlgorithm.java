@@ -28,11 +28,11 @@ public class CompoundMultiSolutionAlgorithm implements ISolveAlgorithm<List<Stri
 	}
 
 	public List<String> algorithm(String sudokuGenerateKey) {
-		final SudokuItem preCheckItem = new SudokuItem("preCheckItem");
+		final SudokuItem preCheckItem = new SudokuItem("preCheckItem/" + sudokuGenerateKey);
 		final boolean preCheckInit = preCheckItem.setEntries(sudokuGenerateKey);
 		if (!preCheckInit) {
-			log.trace("skip @1   gKey:  {}", sudokuGenerateKey);
 			if (log.isTraceEnabled()) {
+				log.trace("skip @1   gKey:  {}", sudokuGenerateKey);
 				preCheckItem.print();
 				preCheckItem.printOptions();
 			}
@@ -59,8 +59,8 @@ public class CompoundMultiSolutionAlgorithm implements ISolveAlgorithm<List<Stri
 				.findFirst()
 				.orElse(SudokuEntry.EMPTY);
 		if (sudokuEntry == SudokuEntry.EMPTY) {
-			log.trace("skip @3   gKey:  {}", sudokuGenerateKey);
 			if (log.isTraceEnabled()) {
+				log.trace("skip @3   gKey:  {}", sudokuGenerateKey);
 				log.trace("getSudokuEntrys(preCheckItem):  {}", Arrays.deepToString(sudokuEntrys));
 				preCheckItem.print();
 				preCheckItem.printOptions();
