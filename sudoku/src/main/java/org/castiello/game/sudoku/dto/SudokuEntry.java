@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.castiello.game.sudoku.SudokuElement;
+import org.castiello.game.sudoku.enums.SudokuElement;
 
 public class SudokuEntry implements Serializable {
 	public static Logger log = LogManager.getLogger(SudokuEntry.class);

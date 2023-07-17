@@ -9,10 +9,10 @@ import java.util.stream.IntStream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.castiello.game.sudoku.SudokuElement;
-import org.castiello.game.sudoku.algo.GenerateKeyAlgorithm;
 import org.castiello.game.sudoku.algo.IAlgorithm;
-import org.castiello.game.sudoku.algo.SudokuVerifyAlgorithm;
+import org.castiello.game.sudoku.algo.impl.GenerateKeyAlgorithm;
+import org.castiello.game.sudoku.algo.impl.SudokuVerifyAlgorithm;
+import org.castiello.game.sudoku.enums.SudokuElement;
 
 public class SudokuItem implements Serializable {
 	public static final Logger log = LogManager.getLogger(SudokuItem.class);

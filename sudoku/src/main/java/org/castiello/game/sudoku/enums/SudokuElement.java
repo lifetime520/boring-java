@@ -1,4 +1,4 @@
-package org.castiello.game.sudoku;
+package org.castiello.game.sudoku.enums;
 
 public enum SudokuElement {
 	EMPTY(" "),
@@ -70,10 +70,8 @@ public enum SudokuElement {
 
 	public String toZeroString() {
 		switch (ordinal()) {
-			case 1: case 2: case 3: case 4:
-			case 5: case 6: case 7: case 8:
-			case 9: return strVal;
-			default: return "0";
+			case 0: return "0";
+			default: return strVal;
 		}
 	}
 }

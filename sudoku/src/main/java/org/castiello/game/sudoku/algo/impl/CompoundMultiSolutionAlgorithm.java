@@ -1,27 +1,34 @@
-package org.castiello.game.sudoku.algo;
+package org.castiello.game.sudoku.algo.impl;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.castiello.game.sudoku.SudokuElement;
+import org.castiello.game.sudoku.algo.IAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.dto.SudokuItem;
+import org.castiello.game.sudoku.enums.SudokuElement;
 
-public class CompoundAlgorithm implements IAlgorithm<String> {
-	public static final Logger log = LogManager.getLogger(CompoundAlgorithm.class);
-	public static final CompoundAlgorithm INSTANCE = new CompoundAlgorithm();
+public class CompoundMultiSolutionAlgorithm implements IAlgorithm<List<String>> {
+	public static final Logger log = LogManager.getLogger(CompoundMultiSolutionAlgorithm.class);
+	public static final List<String> EMPTY = List.of();
+	public static final CompoundMultiSolutionAlgorithm INSTANCE = new CompoundMultiSolutionAlgorithm();
 	private static Field field;
+	public static final AtomicBoolean collectAns = new AtomicBoolean(false);
+	public static final AtomicLong cnt = new AtomicLong();
 
 	@Override
-	public String algorithm(SudokuEntry[][] sudokuEntrys) {
+	public List<String> algorithm(SudokuEntry[][] sudokuEntrys) {
 		final String sudokuGenerateKey = GenerateKeyAlgorithm.INSTANCE.algorithm(sudokuEntrys);
 		return algorithm(sudokuGenerateKey);
 	}
 
-	public String algorithm(String sudokuGenerateKey) {
+	public List<String> algorithm(String sudokuGenerateKey) {
 		final SudokuItem preCheckItem = new SudokuItem("preCheckItem");
 		final boolean preCheckInit = preCheckItem.setEntries(sudokuGenerateKey);
 		if (!preCheckInit) {
@@ -30,7 +37,7 @@ public class CompoundAlgorithm implements IAlgorithm<String> {
 				preCheckItem.print();
 				preCheckItem.printOptions();
 			}
-			return null;
+			return EMPTY;
 		};
 
 		// quick way
@@ -39,8 +46,11 @@ public class CompoundAlgorithm implements IAlgorithm<String> {
 		// store current key
 		final String newestSudokuGenerateKey = preCheckItem.toString();
 		if (preCheckItem.isComplete()) {
-//			log.info("final     gKey:  {}", newestSudokuGenerateKey);
-			return newestSudokuGenerateKey;
+			if (!collectAns.get()) {
+//				log.info("final     gKey:  {}", newestSudokuGenerateKey);
+				cnt.incrementAndGet();
+			}
+			return List.of(newestSudokuGenerateKey);
 		}
 
 		final SudokuEntry[][] sudokuEntrys = getSudokuEntrys(preCheckItem);
@@ -56,18 +66,19 @@ public class CompoundAlgorithm implements IAlgorithm<String> {
 				preCheckItem.print();
 				preCheckItem.printOptions();
 			}
-			return null;
+			return EMPTY;
 		} else {
 		}
 
+//		log.info("cnt:{}", cnt.get());
 		return sudokuEntry.getOptions()
-				.stream()
-				.map(options -> {
-					return algorithm(newestSudokuGenerateKey.replaceFirst("0", options.toString()));
+//				.stream()
+				.parallelStream()
+				.flatMap(options -> {
+					List<String> ansList = algorithm(newestSudokuGenerateKey.replaceFirst("0", options.toString()));
+					return collectAns.get() ? ansList.stream() : EMPTY.stream();
 				})
-				.filter(Objects::nonNull)
-				.findFirst()
-				.orElse(null);
+				.collect(Collectors.toList());
 	}
 
 	static {

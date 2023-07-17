@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import org.castiello.game.sudoku.algo.CompoundAlgorithm;
-import org.castiello.game.sudoku.algo.CompoundMultiSolutionAlgorithm;
+import org.castiello.game.sudoku.algo.impl.CompoundAlgorithm;
+import org.castiello.game.sudoku.algo.impl.CompoundMultiSolutionAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuItem;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

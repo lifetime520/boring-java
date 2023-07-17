@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.castiello.game.sudoku.SudokuElement;
+import org.castiello.game.sudoku.enums.SudokuElement;
 
 public class SudokuConstraint implements Serializable {
 	private static final long serialVersionUID = 1L;
