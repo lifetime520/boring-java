@@ -3,7 +3,7 @@ package org.castiello.game.sudoku.util;
 import java.lang.reflect.Field;
 
 import org.castiello.game.sudoku.dto.SudokuEntry;
-import org.castiello.game.sudoku.dto.SudokuItem;
+import org.castiello.game.sudoku.item.impl.SudokuItem;
 
 public class SudokuItemUtils {
 	private static Field field;

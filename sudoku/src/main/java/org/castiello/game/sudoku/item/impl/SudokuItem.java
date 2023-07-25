@@ -1,4 +1,4 @@
-package org.castiello.game.sudoku.dto;
+package org.castiello.game.sudoku.item.impl;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -12,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 import org.castiello.game.sudoku.algo.ISolveAlgorithm;
 import org.castiello.game.sudoku.algo.impl.GenerateKeyAlgorithm;
 import org.castiello.game.sudoku.algo.impl.SudokuVerifyAlgorithm;
+import org.castiello.game.sudoku.dto.SudokuConstraint;
+import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.enums.SudokuElement;
 
 public class SudokuItem implements Serializable {
