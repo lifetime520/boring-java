@@ -1,12 +1,13 @@
 package org.castiello.game.sudoku.dto;
 
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.castiello.game.sudoku.enums.SudokuElement;
+import org.castiello.game.sudoku.item.ISudokuConstraint;
 
-public class SudokuConstraint implements Serializable {
+public class SudokuConstraint implements ISudokuConstraint<Collection<SudokuElement>> {
 	private static final long serialVersionUID = 1L;
 
 	private final String key;
@@ -16,11 +17,11 @@ public class SudokuConstraint implements Serializable {
 		this.key = key;
 	}
 
-	public Set<SudokuElement> getSets() {
+	public Set<SudokuElement> getElements() {
 		return new HashSet<>(sets);
 	}
 
-	public boolean addSet(SudokuElement sudokuElement) {
+	public boolean addElement(SudokuElement sudokuElement) {
 		return sets.add(sudokuElement);
 	}
 

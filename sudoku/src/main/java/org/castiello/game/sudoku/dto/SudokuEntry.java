@@ -1,6 +1,5 @@
 package org.castiello.game.sudoku.dto;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
@@ -8,8 +7,9 @@ import java.util.function.Function;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.castiello.game.sudoku.enums.SudokuElement;
+import org.castiello.game.sudoku.item.ISudokuEntry;
 
-public class SudokuEntry implements Serializable {
+public class SudokuEntry implements ISudokuEntry {
 	public static Logger log = LogManager.getLogger(SudokuEntry.class);
 	private static final long serialVersionUID = 1L;
 
@@ -17,6 +17,7 @@ public class SudokuEntry implements Serializable {
 
 	private final int rowId;
 	private final int columnId;
+	private final String id;
 	private final SudokuConstraint rowSudokuConstraint;
 	private final SudokuConstraint columnSudokuConstraint;
 	private final SudokuConstraint regionSudokuConstraint;
@@ -26,6 +27,7 @@ public class SudokuEntry implements Serializable {
 	private SudokuEntry() {
 		this.rowId = 0;
 		this.columnId = 0;
+		id = "";
 		rowSudokuConstraint = null;
 		columnSudokuConstraint = null;
 		regionSudokuConstraint = null;
@@ -34,6 +36,7 @@ public class SudokuEntry implements Serializable {
 	public SudokuEntry(int r, int c, Function<String, SudokuConstraint> mapFunction) {
 		this.rowId = r;
 		this.columnId = c;
+		id = String.format("SudokuEntry<%d, %d>", rowId, columnId);
 		rowSudokuConstraint = mapFunction.apply(String.format("%d,%d,%b", r, -1, false));
 		columnSudokuConstraint = mapFunction.apply(String.format("%d,%d,%b", -1, c, false));
 		regionSudokuConstraint = mapFunction.apply(String.format("%d,%d,%b", r / 3, c / 3, true));
@@ -41,11 +44,10 @@ public class SudokuEntry implements Serializable {
 
 	public Set<SudokuElement> getOptions() {
 		final Set<SudokuElement> leaveElement = new HashSet<>(allSets);
-		leaveElement.removeAll(rowSudokuConstraint.getSets());
-//		if (leaveElement.isEmpty()) return leaveElement;
-		leaveElement.removeAll(columnSudokuConstraint.getSets());
-//		if (leaveElement.isEmpty()) return leaveElement;
-		leaveElement.removeAll(regionSudokuConstraint.getSets());
+
+		leaveElement.removeAll(rowSudokuConstraint.getElements());
+		leaveElement.removeAll(columnSudokuConstraint.getElements());
+		leaveElement.removeAll(regionSudokuConstraint.getElements());
 		return leaveElement;
 	}
 
@@ -57,15 +59,15 @@ public class SudokuEntry implements Serializable {
 				|| regionSudokuConstraint.containElement(sudokuElement))
 			return false;
 
-		rowSudokuConstraint.addSet(sudokuElement);
-		columnSudokuConstraint.addSet(sudokuElement);
-		regionSudokuConstraint.addSet(sudokuElement);
+		rowSudokuConstraint.addElement(sudokuElement);
+		columnSudokuConstraint.addElement(sudokuElement);
+		regionSudokuConstraint.addElement(sudokuElement);
 		ans = sudokuElement;
 		return true;
 	}
 
 	public String getId() {
-		return String.format("SudokuEntry<%d, %d>", rowId, columnId);
+		return id;
 	}
 
 	public int getRowId() {
@@ -82,6 +84,6 @@ public class SudokuEntry implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("SudokuEntry<%d, %d>:%d\n row:%s\n column:%s\n region:%s \n", rowId, columnId, ans, rowSudokuConstraint, columnSudokuConstraint, regionSudokuConstraint);
+		return String.format("%s:%d\n row:%s\n column:%s\n region:%s \n", id, ans, rowSudokuConstraint, columnSudokuConstraint, regionSudokuConstraint);
 	}
 }
