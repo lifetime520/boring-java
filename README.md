@@ -12,7 +12,7 @@ This is a project, which i want to write down some things
     * about work config quick mgmt tools
 * trading bot
     * planing
-    * about coding is haed
+    * about coding is hard
 * strategy order service
     * planing
-    * about coding is haed
+    * about coding is hard
