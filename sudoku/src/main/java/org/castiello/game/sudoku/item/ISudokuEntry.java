@@ -1,5 +1,7 @@
 package org.castiello.game.sudoku.item;
 
-public interface ISudokuEntry {
+import java.io.Serializable;
+
+public interface ISudokuEntry extends Serializable {
 
 }

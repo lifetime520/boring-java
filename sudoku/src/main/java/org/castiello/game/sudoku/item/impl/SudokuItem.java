@@ -37,8 +37,8 @@ public class SudokuItem implements Serializable {
 		final char[] charVals = vals.toCharArray();
 
 		boolean verify = IntStream.range(0, 81).allMatch(idx -> {
-			int r = idx / 9;
-			int c = idx - r * 9;
+			final int r = idx / 9;
+			final int c = idx - r * 9;
 			sudokuEntrys[r][c] = new SudokuEntry(r, c, mapFunction);
 			final SudokuElement val = SudokuElement.get(charVals[idx]);
 			return SudokuElement.EMPTY == val || setEntry(sudokuEntrys[r][c], val);
