@@ -1,1 +1,19 @@
 rootProject.name = 'match'
+
+dependencyResolutionManagement {
+	repositories {
+		maven {
+			url = uri("https://nexus01.nogle.io/repository/maven-snapshots/")
+			mavenContent {
+				snapshotsOnly()
+			}
+		}
+		maven {
+			url = uri("https://nexus01.nogle.io/repository/maven-releases/")
+			mavenContent {
+				releasesOnly()
+			}
+		}
+		mavenCentral()
+	}
+}
