@@ -18,7 +18,8 @@ configurations {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	implementation 'org.springframework.boot:spring-boot-starter'
+//	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
@@ -26,6 +27,7 @@ dependencies {
 	implementation 'com.btse.match:general:2.5.slim-SNAPSHOT'
 	implementation 'com.btse.match:client:2.5.slim-SNAPSHOT'
 	implementation 'com.btse.match:client_commons:2.5.slim-SNAPSHOT'
+//	implementation 'org.apache.commons:commons-lang3'
 
 	compileOnly 'org.projectlombok:lombok'
 
@@ -36,7 +38,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.batch:spring-batch-test'
+//	testImplementation 'org.springframework.batch:spring-batch-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 tasks.named('test') {
