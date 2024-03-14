@@ -22,3 +22,19 @@ spring:
 #    init.data-locations: import_active_users.sql,import_inactive_users.sql
 # default: data.sql
 #    mode: never
+
+btse:
+  matchEngineConfigObjectMap:
+    SPOT:
+      - matchServerType: TRADE
+        serverConnectionString: btse01:17000;btse03:17000
+      - matchServerType: QUERY
+        serverConnectionString: btse01:17100;btse03:17100
+    FUTURES:
+      - matchServerType: TRADE
+        serverConnectionString: btse02:18000;btse04:18000;btse06:18000;btse08:18000;
+      - matchServerType: QUERY
+        serverConnectionString: btse02:18100;btse04:18100;btse06:18100;btse08:18100;
+    TRADESERVER:
+      - matchServerType: TRADEFILLS
+        serverConnectionString: trade01:10050;trade02:10050;
