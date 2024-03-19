@@ -38,3 +38,10 @@ btse:
     TRADESERVER:
       - matchServerType: TRADEFILLS
         serverConnectionString: trade01:10050;trade02:10050;
+  threadMgmt:
+    QUERY:
+      minThread: 1
+      maxThread: 2
+    TRADE:
+      minThread: 1
+      maxThread: 8

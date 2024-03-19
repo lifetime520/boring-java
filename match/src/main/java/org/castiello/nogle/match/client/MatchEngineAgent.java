@@ -43,11 +43,12 @@ public class MatchEngineAgent {
 	private final int minThreads = 2;
 	private final int maxThreads = 6;
 	private final int timeout = 3000;
+	private ScalingThreadPoolExecutor agentExecutor = new ScalingThreadPoolExecutor("agentExecutor", minThreads, maxThreads, 60, TimeUnit.SECONDS);
 
 	private final Map<MatchServerNode, BTSEClient> clientMap = new HashMap<>();
 	private final Map<Long, Object> monitor = new ConcurrentHashMap<>();
 	protected final Map<Long, Consumer<Object>> requestSubscribleMap = new ConcurrentHashMap<>();
-	protected final Map<Class<?>, Consumer<Object>> classSubscribleMap = new ConcurrentHashMap<>();
+	protected final Map<Class<?>, Map<Long, Consumer<Object>>> classSubscribleMap = new ConcurrentHashMap<>();
 	protected final Supplier<Long> trackingGen = () -> Utils.getRandomLong(Integer.MAX_VALUE + 1, 0x3fffffffffffffffL);
 
 	@Autowired
@@ -132,8 +133,10 @@ public class MatchEngineAgent {
 	 * @param clazz
 	 * @param consumer
 	 */
-	public <T> void registClassSubscrible(Class<T> clazz, Consumer<Object> consumer) {
-		classSubscribleMap.put(clazz, consumer);
+	public <T> Long registClassSubscrible(Class<T> clazz, Consumer<Object> consumer) {
+		final Long subscribleKey = trackingGen.get();
+		classSubscribleMap.compute(clazz, (k ,v) -> v == null ? new ConcurrentHashMap<>() : v).put(subscribleKey, consumer);
+		return subscribleKey;
 	}
 
 	/**
@@ -141,20 +144,30 @@ public class MatchEngineAgent {
 	 * @param trackingId
 	 * @param consumer
 	 */
-	public void registRequestSubscrible(Packet pkg, Consumer<Object> consumer, BTSEClient client) {
+	public void registRequestSubscrible(Packet pkg, Consumer<Object> consumer) {
 		requestSubscribleMap.put(pkg.getId(), consumer);
 	}
 
 	private void eventSubscribleExcutor(Object object) {
 		if (object instanceof Packet) {
-			long packetId = ((Packet) object).getPacketID();
-			Consumer<Object> consumer = requestSubscribleMap.remove(packetId);
+			Consumer<Object> consumer = requestSubscribleMap.remove(((Packet) object).getPacketID());
 			if (consumer != null) {
 				consumer.accept(object);
 			}
 		}
-		if (classSubscribleMap.containsKey(object.getClass()))
-			classSubscribleMap.get(object.getClass()).accept(object);
+		Map<Long, Consumer<Object>> classConsumer = null;
+		if ((classConsumer = classSubscribleMap.get(object.getClass())) != null) {
+			classConsumer.values().forEach(innerConsumer -> {
+				Runnable r = () -> {
+					try {
+						innerConsumer.accept(object);
+					}catch (Exception e) {
+						log.error(e.getMessage(), e);
+					}
+				};
+				agentExecutor.execute(r);
+			});
+		}
 	}
 
 
@@ -208,7 +221,7 @@ public class MatchEngineAgent {
 	}
 
 	class MakerResponseHandler extends CustomResponseHandler {
-		protected ScalingThreadPoolExecutor executor = new ScalingThreadPoolExecutor("CBCM", minThreads, maxThreads, 60, TimeUnit.SECONDS);
+		protected ScalingThreadPoolExecutor executor = new ScalingThreadPoolExecutor("ResponseExecutor", minThreads, maxThreads, 60, TimeUnit.SECONDS);
 
 		@Override
 		public void execute(Connection arg0, Object arg1) {
