@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: BTSE Engine Trader
   output:
     ansi.enabled: ALWAYS
   main:
