@@ -13,12 +13,12 @@ import lombok.Setter;
 @Setter
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String uuid;
-    @Column(nullable = false)
-    private String login;
-    @Column(nullable = false)
-    private String password;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String uuid;
+	@Column(nullable = false)
+	private String login;
+	@Column(nullable = false)
+	private String password;
 
 }

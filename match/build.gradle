@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.3'
 	id 'io.spring.dependency-management' version '1.1.4'
-	id "com.gorylenko.gradle-git-properties" version "1.5.1"
+	id "com.gorylenko.gradle-git-properties" version "2.4.1" //https://github.com/n0mer/gradle-git-properties
 }
 
 group = 'org.castiello.nogle'
@@ -20,6 +20,9 @@ configurations {
 	runtimeClasspath {
 		extendsFrom developmentOnly
 	}
+//	all {
+//		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+//	}
 }
 
 dependencies {
@@ -33,7 +36,7 @@ dependencies {
 	implementation 'com.btse.match:client:2.5.slim-SNAPSHOT'
 	implementation 'com.btse.match:client_commons:2.5.slim-SNAPSHOT'
 //	implementation 'org.apache.commons:commons-lang3'
-
+//	runtimeOnly 'org.springframework.boot:spring-boot-starter-log4j2'
 	compileOnly 'org.projectlombok:lombok'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -50,4 +53,15 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+springBoot {
+	buildInfo {
+		properties {
+			artifact = 'example-app'
+			version = '1.2.3'
+			group = 'com.example'
+			name = 'Example application'
+		}
+	}
 }
