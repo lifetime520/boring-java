@@ -1,4 +1,8 @@
 spring:
+  output:
+    ansi.enabled: ALWAYS
+  main:
+    banner-mode: console
   datasource:
     url: jdbc:h2:mem:mydb
 #    url: jdbc:h2:file:./data/demo
@@ -22,7 +26,11 @@ spring:
 #    init.data-locations: import_active_users.sql,import_inactive_users.sql
 # default: data.sql
 #    mode: never
+#logging:
+#  config: classpath:log4j2.yml
 
+server:
+  port: 9527
 btse:
   matchEngineConfigObjectMap:
     SPOT:
