@@ -1,6 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.3'
+//	id 'org.springframework.boot' version '3.2.3'
+	id 'org.springframework.boot' version '2.7.18'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id "com.gorylenko.gradle-git-properties" version "2.4.1" //https://github.com/n0mer/gradle-git-properties
 }
@@ -9,7 +10,9 @@ group = 'org.castiello.nogle'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+//	sourceCompatibility = '17'
+	sourceCompatibility = '11'
+	targetCompatibility = '11'
 }
 
 configurations {
@@ -53,6 +56,10 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+	options.release = 11
 }
 
 springBoot {
