@@ -1,4 +1,4 @@
-package org.castiello.nogle.match.aspect;
+package org.castiello.nogle.match.aspect.jpa;
 
 import java.util.Arrays;
 
