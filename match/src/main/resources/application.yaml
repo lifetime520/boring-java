@@ -1,10 +1,15 @@
 spring:
-  application:
-    name: BTSE Engine Trader
+  aop:
+    auto: true # Add @EnableAspectJAutoProxy.
+    proxy-target-class: true # Whether subclass-based (CGLIB) proxies are to be created (true), as opposed to standard Java interface-based proxies (false).
+# IDENTITY (ContextIdApplicationContextInitializer)
+  application: 
+    name: BTSE Engine Trader # Application name.
   output:
-    ansi.enabled: ALWAYS
+    ansi:
+      enabled: detect
   main:
-    banner-mode: console
+    banner-mode: console # Mode used to display the banner when the application runs.
   datasource:
     url: jdbc:h2:mem:mydb
 #    url: jdbc:h2:file:./data/demo
@@ -20,6 +25,16 @@ spring:
         web-allow-others: false
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+  banner: # BANNER
+    charset: UTF-8 # Banner file encoding.
+#    location: classpath:banner.txt # Banner text resource location.
+    image:
+      location: classpath:5308460430_05413110cf_o.jpg # Banner image file location (jpg or png can also be used).
+      width: 256 # Width of the banner image in chars.
+      height: # Height of the banner image in chars (default based on image height).
+      margin: 2 # Left hand image margin in chars.
+      invert: false # Whether images should be inverted for dark terminal themes.
+
 #    properties:
 #      hibernate.hbm2ddl.import_files: import_active_users.sql,import_inactive_users.sql
 # default: schema.sql
