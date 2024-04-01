@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.PostConstruct;
+
 import org.castiello.nogle.match.aspect.jpa.UserJpaSaveEventAspect;
 import org.castiello.nogle.match.po.MarketDataPo;
 import org.castiello.nogle.match.po.User;
@@ -11,7 +13,6 @@ import org.castiello.nogle.match.repos.MarketDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.PostConstruct;
 import lombok.extern.log4j.Log4j2;
 
 @Component

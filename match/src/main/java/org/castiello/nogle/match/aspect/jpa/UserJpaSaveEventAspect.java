@@ -1,9 +1,9 @@
 package org.castiello.nogle.match.aspect.jpa;
 
-import java.util.concurrent.AbstractExecutorService;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.annotation.PostConstruct;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -12,7 +12,6 @@ import org.castiello.nogle.match.po.User;
 import org.castiello.nogle.match.subscriber.AbstractEventMgmtService;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.PostConstruct;
 import lombok.extern.log4j.Log4j2;
 
 @Component

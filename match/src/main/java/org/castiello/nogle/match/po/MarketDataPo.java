@@ -1,12 +1,13 @@
 package org.castiello.nogle.match.po;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.btse.match.common.MarketInfo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,8 +19,8 @@ import lombok.ToString;
 public class MarketDataPo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String uuid;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int uuid;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)

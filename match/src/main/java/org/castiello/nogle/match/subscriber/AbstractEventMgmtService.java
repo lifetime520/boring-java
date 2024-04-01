@@ -88,15 +88,15 @@ public abstract class AbstractEventMgmtService<T> {
 	 */
 	protected boolean singleThread(String threadName) {
 		if (asynTaskActive.getAndSet(true)) {
-			log.info("[MN:singleThread] ().syncEventProxyStart() already started", this.getClass().getSimpleName());
+			log.info("[MN:singleThread] {}.syncEventProxyStart() already started", this.getClass().getSimpleName());
 			return false;
 		}
 		new Thread(() -> {
-			log.info("[MN:singleThread] start ().syncEventProxyStart()", this.getClass().getSimpleName());
+			log.info("[MN:singleThread] start {}.syncEventProxyStart()", this.getClass().getSimpleName());
 			try {
 				syncEventProxyStart();
 			} catch (Exception e) {
-				log.error("[singleThread] stop ().syncEventProxyStart(), Reason:{}", this.getClass().getSimpleName(), e.getMessage(), e);
+				log.error("[singleThread] stop {}.syncEventProxyStart(), Reason:{}", this.getClass().getSimpleName(), e.getMessage(), e);
 				asynTaskActive.set(false);
 			}
 		}, threadName).start();

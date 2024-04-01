@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import javax.annotation.PostConstruct;
+
 import org.castiello.nogle.match.setting.vo.EngineConnectionConfigVo;
 import org.castiello.nogle.match.setting.vo.EngineConnectionConfigVo.MatchServerNode;
 import org.castiello.nogle.match.setting.vo.EngineConnectionConfigVo.MatchServerType;
@@ -33,7 +35,6 @@ import com.btse.match.thread.ScalingThreadPoolExecutor;
 import com.btse.match.util.Utils;
 import com.esotericsoftware.kryonet.Connection;
 
-import jakarta.annotation.PostConstruct;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
