@@ -13,6 +13,3 @@ This is a project, which i want to write down some things
 * trading bot
     * planing
     * about coding is hard
-* strategy order service
-    * planing
-    * about coding is hard
