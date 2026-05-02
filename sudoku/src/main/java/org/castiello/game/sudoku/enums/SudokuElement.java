@@ -10,7 +10,7 @@ public enum SudokuElement {
 	SIX("6"),
 	SEVEN("7"),
 	EIGHT("8"),
-	NIGHT("9");
+	NINE("9");
 
 	private final String strVal;
 
@@ -28,7 +28,7 @@ public enum SudokuElement {
 			case 6: return SIX;
 			case 7: return SEVEN;
 			case 8: return EIGHT;
-			case 9: return NIGHT;
+			case 9: return NINE;
 			default: return EMPTY;
 		}
 	}
@@ -43,7 +43,7 @@ public enum SudokuElement {
 			case '6': return SIX;
 			case '7': return SEVEN;
 			case '8': return EIGHT;
-			case '9': return NIGHT;
+			case '9': return NINE;
 			default: return EMPTY;
 		}
 	}
@@ -58,7 +58,7 @@ public enum SudokuElement {
 			case "6": return SIX;
 			case "7": return SEVEN;
 			case "8": return EIGHT;
-			case "9": return NIGHT;
+			case "9": return NINE;
 			default: return EMPTY;
 		}
 	}

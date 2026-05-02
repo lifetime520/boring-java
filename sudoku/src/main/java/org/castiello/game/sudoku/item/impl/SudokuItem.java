@@ -93,6 +93,10 @@ public class SudokuItem implements Serializable {
 		return algorithm.algorithm(sudokuEntrys);
 	}
 
+	public SudokuEntry[][] getSudokuEntrys() {
+		return sudokuEntrys;
+	}
+
 	@Override
 	public String toString() {
 		return GenerateKeyAlgorithm.INSTANCE.algorithm(sudokuEntrys);

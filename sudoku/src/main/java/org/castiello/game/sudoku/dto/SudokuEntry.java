@@ -13,7 +13,7 @@ public class SudokuEntry implements ISudokuEntry {
 	public static Logger log = LogManager.getLogger(SudokuEntry.class);
 	private static final long serialVersionUID = 1L;
 
-	public static final Set<SudokuElement> allSets = Set.of(SudokuElement.ONE, SudokuElement.TWO, SudokuElement.THREE, SudokuElement.FOUR, SudokuElement.FIVE, SudokuElement.SIX, SudokuElement.SEVEN, SudokuElement.EIGHT, SudokuElement.NIGHT);
+	public static final Set<SudokuElement> allSets = Set.of(SudokuElement.ONE, SudokuElement.TWO, SudokuElement.THREE, SudokuElement.FOUR, SudokuElement.FIVE, SudokuElement.SIX, SudokuElement.SEVEN, SudokuElement.EIGHT, SudokuElement.NINE);
 
 	private final int rowId;
 	private final int columnId;

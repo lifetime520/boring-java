@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.castiello.game.sudoku.item.impl.SudokuItem;
-import org.castiello.game.sudoku.util.SudokuItemUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,6 +19,6 @@ public class SudokuVerifyAlgorithmTests {
 		SudokuItem si = new SudokuItem("GenerateKeyAlgorithmTests");
 		si.setEntries(inputEazy);
 
-		assertTrue(SudokuVerifyAlgorithm.INSTANCE.algorithm(SudokuItemUtils.getSudokuEntrys(si)));
+		assertTrue(SudokuVerifyAlgorithm.INSTANCE.algorithm(si.getSudokuEntrys()));
 	}
 }

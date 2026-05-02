@@ -9,7 +9,6 @@ import org.castiello.game.sudoku.algo.ISolveAlgorithm;
 import org.castiello.game.sudoku.dto.SudokuEntry;
 import org.castiello.game.sudoku.enums.SudokuElement;
 import org.castiello.game.sudoku.item.impl.SudokuItem;
-import org.castiello.game.sudoku.util.SudokuItemUtils;
 
 public class CompoundAlgorithm implements ISolveAlgorithm<String> {
 	public static final Logger log = LogManager.getLogger(CompoundAlgorithm.class);
@@ -43,7 +42,7 @@ public class CompoundAlgorithm implements ISolveAlgorithm<String> {
 			return newestSudokuGenerateKey;
 		}
 
-		final SudokuEntry[][] sudokuEntrys = SudokuItemUtils.getSudokuEntrys(preCheckItem);
+		final SudokuEntry[][] sudokuEntrys = preCheckItem.getSudokuEntrys();
 		final SudokuEntry sudokuEntry = Arrays.asList(sudokuEntrys)
 				.stream()
 				.flatMap(arrays -> Arrays.asList(arrays).stream().filter(_sudokuEntry -> _sudokuEntry.getAns() == SudokuElement.EMPTY))
