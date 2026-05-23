@@ -10,14 +10,9 @@ function placeMarketOrder {
 }
 function closePosition {
   curl 'https://api.btse.com/futures/api/v2.2/order/close_position' \
-    -H 'accept: application/json, text/plain, */*' \
-    -H 'authorization: Bearer <REDACTED-EXPIRED-JWT-2024-05-06>' \
-    -H 'content-type: application/json' \
-    -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36' \
-    --data-raw '{"symbol":"BTC-PERP","type":"MARKET","positionId":"BTC-PERP-USDT","clOrderID":"_W_'$(uuidgen | tr 'A-Z' 'a-z')'"}' 
-    # \
-    # | json_pp
-     # | grep -v -E 'ion(D|M)|dev|order(D|T)|time_i|tr|sym|Si|lth|On' | sed -E 's/(timestamp" : [0-9]+),/\1/g' >> ./logs/`date +"%Y%m%d"`.btse.log &
+    -H @./authorization.clrc \
+    --data-raw '{"symbol":"BTC-PERP","type":"MARKET","positionId":"BTC-PERP-USDT","clOrderID":"_W_'$(uuidgen | tr 'A-Z' 'a-z')'"}' \
+    | json_pp | grep -v -E 'ion(D|M)|dev|order(D|T)|time_i|tr|sym|Si|lth|On' | sed -E 's/(timestamp" : [0-9]+),/\1/g' >> ./logs/`date +"%Y%m%d"`.btse.log &
 }
 
 case $1 in
